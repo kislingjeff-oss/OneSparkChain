@@ -212,8 +212,8 @@
   // Tell an embedding page (e.g. the blog) how tall this page is, so its frame can fit it.
   var last=0;
   function report(){
-    var h=document.documentElement.scrollHeight;
-    if(h!==last){ last=h; try{ window.parent.postMessage({sparkChainHeight:h},'*'); }catch(_){} }
+    var f=document.querySelector('footer'); var h=Math.ceil(f?f.getBoundingClientRect().bottom+window.scrollY:document.body.scrollHeight);
+    if(Math.abs(h-last)>2){ last=h; try{ window.parent.postMessage({sparkChainHeight:h},'*'); }catch(_){} }
   }
   if(window.self!==window.top){
     window.addEventListener('load',report); window.addEventListener('resize',report);
